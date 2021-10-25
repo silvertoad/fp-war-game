@@ -1,12 +1,12 @@
-using System;
 using LanguageExt;
 
 namespace Castles.Model
 {
-    public struct State
+    public record GameState
     {
         public Lst<Option<GameUnit>> Line;
-        public Map<Players, PlayerData> Players;
+        public Money P1;
+        public Money P2;
     }
 
     public struct GameUnit
@@ -14,9 +14,14 @@ namespace Castles.Model
         public Hp Hp;
         public Players Owner;
         public UnitProto Proto;
+
+        public override string ToString()
+        {
+            return $"{nameof(Hp)}: {Hp}, {nameof(Owner)}: {Owner}, {nameof(Proto)}: {Proto}";
+        }
     }
 
-    public struct Hp
+    public record Hp
     {
         private const int MaxValue = 9;
 
@@ -31,15 +36,30 @@ namespace Castles.Model
         {
             _value = value;
         }
+
+        public override string ToString()
+        {
+            return $"Hp [{_value}]";
+        }
     }
 
-    public struct Money
+    public record Money
     {
         private readonly int _value;
 
         public Money(int money)
         {
             _value = money;
+        }
+
+        public static Money Of(int value)
+        {
+            return new Money(value);
+        }
+
+        public override string ToString()
+        {
+            return $"Money [{_value}]";
         }
     }
 
@@ -54,7 +74,7 @@ namespace Castles.Model
             _p2View = p2;
         }
 
-        public string Render(Players owner) => owner switch
+        public readonly string Render(Players owner) => owner switch
         {
             Players.P1 => _p1View,
             _ => _p2View
@@ -73,11 +93,5 @@ namespace Castles.Model
     {
         P1,
         P2
-    }
-
-    public struct PlayerData
-    {
-        public Some<int> Hp;
-        public Some<int> Money;
     }
 }

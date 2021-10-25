@@ -18,15 +18,20 @@ namespace Castles.Model
         }
 
         public static readonly UnitProto Warrior =
-            new UnitProto(UnitType.Warrior, new Hp(9), new Hp(3), new Money(15), new View("]", "["));
+            new(UnitType.Warrior, new Hp(9), new Hp(3), new Money(15), new View("]", "["));
 
         public static readonly UnitProto Archer =
-            new UnitProto(UnitType.Archer, new Hp(5), new Hp(2), new Money(20), new View("}", "{"));
+            new(UnitType.Archer, new Hp(5), new Hp(2), new Money(20), new View("}", "{"));
 
         public static readonly UnitProto Cleric =
-            new UnitProto(UnitType.Cleric, new Hp(3), new Hp(1), new Money(30), new View(")", "("));
+            new(UnitType.Cleric, new Hp(3), new Hp(1), new Money(30), new View(")", "("));
 
         public static readonly UnitProto Castle =
-            new UnitProto(UnitType.Castle, new Hp(100), new Hp(0), new Money(0), new View("###", "###"));
+            new(UnitType.Castle, new Hp(100), new Hp(0), new Money(0), new View("###", "###"));
+
+        public override string ToString()
+        {
+            return $"{nameof(Type)}: {Type}, {nameof(Hp)}: {Hp}, {nameof(Damage)}: {Damage}, {nameof(Cost)}: {Cost}";
+        }
     }
 }
