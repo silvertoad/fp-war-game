@@ -2,6 +2,7 @@
 
 namespace Castles
 {
+    // https://gameinsight.notion.site/Line-World-Total-War-medium-df3ca24400154f8d90b4c7e5b2555f5d
     class Program
     {
         static void Main(string[] args)

@@ -1,38 +1,72 @@
+using System;
 using LanguageExt;
 
 namespace Castles.Model
 {
     public struct State
     {
-        public Lst<Some<Cell>> Line;
+        public Lst<Option<GameUnit>> Line;
         public Map<Players, PlayerData> Players;
-    }
-
-    public struct Cell
-    {
-        public GameUnit Unit;
-        public bool IsOccupied;
     }
 
     public struct GameUnit
     {
-        public UnitType Type;
-        public int Hp;
+        public Hp Hp;
         public Players Owner;
+        public UnitProto Proto;
     }
 
-    public struct UnitProto
+    public struct Hp
     {
-        public UnitType Type;
-        public int Hp;
-        public int Damage;
+        private const int MaxValue = 9;
+
+        private readonly int _value;
+
+        public static Hp Of(int value)
+        {
+            return new Hp(value);
+        }
+
+        public Hp(int value)
+        {
+            _value = value;
+        }
+    }
+
+    public struct Money
+    {
+        private readonly int _value;
+
+        public Money(int money)
+        {
+            _value = money;
+        }
+    }
+
+    public struct View
+    {
+        private readonly string _p1View;
+        private readonly string _p2View;
+
+        public View(string p1, string p2)
+        {
+            _p1View = p1;
+            _p2View = p2;
+        }
+
+        public string Render(Players owner) => owner switch
+        {
+            Players.P1 => _p1View,
+            _ => _p2View
+        };
     }
 
     public enum UnitType
     {
         Warrior,
         Archer,
-        Cleric
+        Cleric,
+        Castle
     }
 
     public enum Players
